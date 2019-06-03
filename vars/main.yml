@@ -1,0 +1,9 @@
+---
+
+yum_deps:
+ - docker-ce
+ - nginx
+ - yum-utils
+ - python34-setuptools
+ - python-pip
+ - python-devel

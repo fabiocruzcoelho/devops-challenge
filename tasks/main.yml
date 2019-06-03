@@ -1,0 +1,71 @@
+---
+
+- name: create directory ssl
+  file:
+    path: '{{ nginx_path_ssl }}'
+    state: directory
+
+- name: copy certificados
+  copy:
+    src: files/
+    dest: '{{ nginx_path_ssl }}'
+
+- name: enable nginx repo
+  template:
+    src: nginx.repo.j2
+    dest: /etc/yum.repos.d/nginx.repo
+
+- name: enable docker repo
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docer-ce.repo
+
+- name: yum install dependencies
+  yum: name="{{ packages }}" state=latest
+  vars:
+    packages: '{{ yum_deps }}'
+
+- name: pip install dependencies
+  pip: name="{{ item }}"
+  loop:
+    - docker
+    - pyOpenSSL
+
+- name: ensure docker and nginx enabled to start at boot
+  service:
+    name: '{{ item }}'
+    state: started
+    enabled: yes
+  loop:
+    - docker
+    - nginx
+
+- name: copy template nginx.conf
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify:
+    - reload nginx
+
+- name: add user vagrant to docker group
+  user:
+    name: vagrant
+    groups: docker
+    append: yes
+
+- name: Build an image and push it to a private repo
+  docker_image:
+    name: '{{ docker_image_name }}'
+    path: .
+    state: present
+    tag: '{{ docker_image_tag }}'
+
+- name: Create container application
+  docker_container:
+    name: '{{ docker_container_name }}'
+    restart_policy: unless-stopped
+    image: '{{ docker_image_name }}:{{ docker_image_tag }}'
+    ports:
+      - "8080:8080"
+
+

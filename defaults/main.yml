@@ -1,0 +1,10 @@
+---
+# docker variables
+docker_image_name: test
+docker_container_name: devops-challenge
+docker_image_tag: v1
+
+# nginx variables
+nginx_path_ssl: /etc/nginx/ssl
+
+
