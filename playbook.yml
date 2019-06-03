@@ -24,5 +24,5 @@
             name: ../devops-challenge
           vars:
             docker_image_name: '{{ app_name }}'
-            docker_container_name: app_go
-            docker_image_tag: v1
+            docker_container_name: '{{ app_name }}'
+            docker_image_tag: '{{ tag_name }}'

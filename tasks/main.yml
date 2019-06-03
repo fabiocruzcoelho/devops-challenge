@@ -1,37 +1,37 @@
 ---
 
-- name: create directory ssl
+- name: cria diretorio ssl
   file:
     path: '{{ nginx_path_ssl }}'
     state: directory
 
-- name: copy certificados
+- name: copia certificados
   copy:
     src: files/
     dest: '{{ nginx_path_ssl }}'
 
-- name: enable nginx repo
+- name: habilita repositorio nginx
   template:
     src: nginx.repo.j2
     dest: /etc/yum.repos.d/nginx.repo
 
-- name: enable docker repo
+- name: habilita repositorio docker
   get_url:
     url: https://download.docker.com/linux/centos/docker-ce.repo
     dest: /etc/yum.repos.d/docer-ce.repo
 
-- name: yum install dependencies
+- name: yum instala depedencias
   yum: name="{{ packages }}" state=latest
   vars:
     packages: '{{ yum_deps }}'
 
-- name: pip install dependencies
+- name: pip instala depedencias
   pip: name="{{ item }}"
   loop:
     - docker
     - pyOpenSSL
 
-- name: ensure docker and nginx enabled to start at boot
+- name: garantindo que docker e nginx habilitado e iniciado no boot
   service:
     name: '{{ item }}'
     state: started
@@ -40,14 +40,14 @@
     - docker
     - nginx
 
-- name: copy template nginx.conf
+- name: copia template nginx.conf
   template:
     src: nginx.conf.j2
     dest: /etc/nginx/nginx.conf
   notify:
     - reload nginx
 
-- name: add user vagrant to docker group
+- name: adiciona usuario vagrant para o grupo docker
   user:
     name: vagrant
     groups: docker
@@ -60,7 +60,7 @@
     state: present
     tag: '{{ docker_image_tag }}'
 
-- name: Create container application
+- name: cria container application
   docker_container:
     name: '{{ docker_container_name }}'
     recreate: yes
@@ -69,12 +69,12 @@
     ports:
       - "8080:8080"
 
-- name: disable selinux
+- name: desabilita selinux
   selinux:
     state: disabled
   notify: reboot server
 
-- name: Check that a page returns a status 200 and fail if the word Hey! You win is not in the page contents
+- name: Verifique se a página retorna um status 200 e falhe se a palavra Hey! You win não está no conteúdo da página
   uri:
     url: 'https://{{ app_domain }}'
     return_content: yes
