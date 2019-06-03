@@ -19,7 +19,7 @@
 
     - name: deploy
       block:
-        - name: test
+        - name: deploy
           include_role:
             name: ../devops-challenge
           vars:
