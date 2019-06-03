@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
 
   # ssh settings
-  config.ssh.insert_key = false
+  #config.ssh.insert_key = false
   
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -68,6 +68,7 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/authorized_keys"
   config.vm.provision "shell", inline: <<-EOC
+    sudo yum -y install epel-release git
     sudo hostnamectl set-hostname devops-challenge
     sudo sed -i -e "\\#PasswordAuthentication yes# s#PasswordAuthentication yes#PasswordAuthentication no#g" /etc/ssh/sshd_config
     sudo systemctl reload sshd.service

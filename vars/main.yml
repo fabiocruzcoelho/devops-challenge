@@ -3,6 +3,7 @@
 yum_deps:
  - docker-ce
  - nginx
+ - git
  - yum-utils
  - python34-setuptools
  - python-pip

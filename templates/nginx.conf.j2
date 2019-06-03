@@ -4,11 +4,9 @@ worker_processes  1;
 error_log  /var/log/nginx/error.log warn;
 pid        /var/run/nginx.pid;
 
-
 events {
  worker_connections  1024;
 }
-
 
 http {
  include       /etc/nginx/mime.types;
@@ -28,6 +26,12 @@ http {
  #gzip  on;
 
  #include /etc/nginx/conf.d/*.conf;
+ fastcgi_buffers 8 16k;
+ fastcgi_buffer_size 32k;
+
+  upstream {{ app_name }} {
+    server {{ ansible_host }}:8080;
+  }
 
 server {
  listen       80;
@@ -39,18 +43,18 @@ server {
  location / {
      root   /usr/share/nginx/html;
      index  index.html index.htm;
-proxy_pass      http://{{ ansible_host }}:8080;
+proxy_pass      http://{{ app_name }};
  }
 }
 
 server {
  listen              443 ssl;
- server_name         devops-challenge.serasa.local;
+ server_name         {{ app_domain }};
  ssl_certificate     {{ nginx_path_ssl }}/{{ app_domain }}.crt;
  ssl_certificate_key {{ nginx_path_ssl }}/{{ app_domain }}.key;
 
  location / {
-  proxy_pass      http://{{ ansible_host }}:8080;
+  proxy_pass      http://{{ app_name }};
+  }
  }
-}
 }

@@ -53,19 +53,24 @@
     groups: docker
     append: yes
 
-- name: Build an image and push it to a private repo
+- name: build image docker
   docker_image:
     name: '{{ docker_image_name }}'
-    path: .
+    path: './{{ app_name }}'
     state: present
     tag: '{{ docker_image_tag }}'
 
 - name: Create container application
   docker_container:
     name: '{{ docker_container_name }}'
+    recreate: yes
     restart_policy: unless-stopped
     image: '{{ docker_image_name }}:{{ docker_image_tag }}'
     ports:
       - "8080:8080"
+   
 
-
+- name: disable selinux
+  selinux:
+    state: disabled
+  notify: reboot server

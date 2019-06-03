@@ -5,6 +5,45 @@
   gather_facts: true
   become: yes
   become_user: root
-  roles:
-    - '../'
+  vars:
+    app_name: devops-chanllenge
+    git_uri: https://github.com/fcruzcoelho/devops-challenge.git
+    code_path: '/home/vagrant/{{ app_name }}'
+    branch_name: ansible
+  tasks:
+    - name: git clone
+      git:
+        repo: '{{ git_uri }}'
+        dest: '{{ code_path }}'
+        version: '{{ branch_name}}'
 
+    - name: deploy
+      block:
+        - name: test
+          include_role:
+            name: ../devops-challenge
+          vars:
+            docker_image_name: fabio
+            docker_container_name: app_go
+            docker_image_tag: v1
+
+
+# - name: win_git_bash
+#   hosts: all
+#   connection: winrm
+#   gather_facts: no
+#   tasks:
+#   - name: execute bash commands
+#     block:
+#       # single command
+#       - name: test
+#         include_role:
+#           name: ../../win_git_bash
+#         vars:
+#           win_git_bash_command: "ls -la"
+#           win_git_bash_path: "C:\\"
+#         register: _single_local
+
+#       # single result
+#       - debug:
+#           var: _single_local
