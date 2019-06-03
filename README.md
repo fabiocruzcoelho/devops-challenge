@@ -67,7 +67,7 @@ Para utilizar o projeto favor executar os comandos abaixo *(Obs:. poderia criar 
   - Destroy ambiente.
 
 Apos a maquina provisionada, executar o playboock com o seguinte comando.
-  - `ansible-playbook -i hosts.yml playbook.yml -e 'tag_name=v3`  
+  - `ansible-playbook -i hosts.yml playbook.yml -e 'tag_name=v1'`  
   + Obs. A variavel `docker_image_tag` é trocada na execução do playbook via `extra-vars` para realizar o build de uma nova imagem docker, conforme comando acima, e assim uma nova versão da aplicação para deploy.
 
 Acessando aplicação
