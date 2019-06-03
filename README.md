@@ -70,6 +70,13 @@ Apos a maquina provisionada, executar o playboock com o seguinte comando.
   - `ansible-playbook -i hosts.yml playbook.yml -e 'tag_name=v3`  
   + Obs. A variavel `docker_image_tag` é trocada na execução do playbook via `extra-vars` para realizar o build de uma nova imagem docker, conforme comando acima, e assim uma nova versão da aplicação para deploy.
 
+Acessando aplicação
+--------------
+Para acessar e testar se a aplicação esta funcionando no seu navegador, favor adicionar em seu arquivo hosts a seguinte linha.
+- `sudo echo "192.168.33.10 devops-challenge.serasa.local" >> /etc/hosts`
+- `https://devops-challenge.serasa.local`
++ Ou direto via endereço IP `https://192.168.33.10`
+
 Testes
 --------------
 
