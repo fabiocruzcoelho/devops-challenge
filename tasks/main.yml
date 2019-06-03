@@ -68,9 +68,18 @@
     image: '{{ docker_image_name }}:{{ docker_image_tag }}'
     ports:
       - "8080:8080"
-   
 
 - name: disable selinux
   selinux:
     state: disabled
   notify: reboot server
+
+- name: Check that a page returns a status 200 and fail if the word Hey! You win is not in the page contents
+  uri:
+    url: 'https://{{ app_domain }}'
+    return_content: yes
+    validate_certs: no
+  register: this
+  failed_when: "'Hey! You win' not in this.content"
+
+

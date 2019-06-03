@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
 
   # ssh settings
-  #config.ssh.insert_key = false
+  config.ssh.insert_key = false
   
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs

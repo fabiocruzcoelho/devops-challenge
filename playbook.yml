@@ -23,27 +23,6 @@
           include_role:
             name: ../devops-challenge
           vars:
-            docker_image_name: fabio
+            docker_image_name: '{{ app_name }}'
             docker_container_name: app_go
             docker_image_tag: v1
-
-
-# - name: win_git_bash
-#   hosts: all
-#   connection: winrm
-#   gather_facts: no
-#   tasks:
-#   - name: execute bash commands
-#     block:
-#       # single command
-#       - name: test
-#         include_role:
-#           name: ../../win_git_bash
-#         vars:
-#           win_git_bash_command: "ls -la"
-#           win_git_bash_path: "C:\\"
-#         register: _single_local
-
-#       # single result
-#       - debug:
-#           var: _single_local
