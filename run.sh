@@ -12,9 +12,6 @@ function title() {
     echo -e "\e[105m\e[1m$1\e[0m"
 }
 
-title ">_ vagrant: vagrant up"
-vagrant box add ubuntu/bionic64 >/dev/null 2>&1 &&
-
 title ">_ vagrant up: vagrant up"
 vagrant up
 
