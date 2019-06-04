@@ -12,6 +12,22 @@
    - deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} edge 
    - deb http://nginx.org/packages/ubuntu {{ansible_distribution_release}} nginx
 
+- name: apt install docker-ce e nginx
+  apt: name="{{ packages }}" state=latest
+  vars:
+    packages:
+     - docker-ce
+     - nginx
+
+- name: garantindo que docker e nginx iniciado e habilitado boot
+  service:
+    name: '{{ item }}'
+    state: started
+    enabled: yes
+  loop:
+    - docker
+    - nginx
+
 - name: cria diretorio ssl
   file:
     path: '{{ nginx_path_ssl }}'
@@ -22,25 +38,19 @@
     src: files/
     dest: '{{ nginx_path_ssl }}'
 
-- name: apt install docker-ce e nginx
-  apt: name="{{ packages }}" state=latest
-  vars:
-    packages:
-     - docker-ce
-     - nginx
+- name: copia template nginx.conf
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify: restart nginx
+
+- meta: flush_handlers
 
 - name: pip install requirements
   pip: name="{{ item }}"
   loop:
     - docker
     - pyOpenSSL
-
-- name: copia template nginx.conf
-  template:
-    src: nginx.conf.j2
-    dest: /etc/nginx/nginx.conf
-  notify:
-    - reload nginx
 
 - name: adiciona usuario vagrant para o grupo docker
   user:

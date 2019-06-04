@@ -9,7 +9,7 @@ Requirements
 Para o funcionamento, é preciso realizar algumas instalação e/ou configuração na maquina local que ira executar o playbook, click nos links abaixo para maiores informações de como instala cada componente instalação.
  - [virtualbox](https://www.virtualbox.org/wiki/Downloads)
  - [vagrant](https://www.vagrantup.com/intro/getting-started/install.html)
- - [ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+ - [ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) `v2.7.x`
  + chave ssh no path `~/.ssh/id_rsa`
     - Obs:. caso a chave não se encontrar no path acima precisa alterar nos seguintes arquivos.
   - Vagrantfile, linha `69`
@@ -56,8 +56,15 @@ Example Playbook
    ```
 Preparando ambiente
 --------------
-Para utilizar o projeto favor executar os comandos abaixo *(Obs:. poderia criar um run.sh mas não deu tempo ;)*
+Para utilizar o projeto favor executar os comandos abaixo.
 - `git clone https://github.com/fcruzcoelho/devops-challenge.git`
+
+#### Quickstart
+Na raiz do projeto executar o scritp `run.sh`
+- `./run.sh hosts.yml -e 'tag_name=v1'`
+
+#### Configuração manual
+Caso deseja preparar o ambiente manualmente, na raiz o projeto executar os comando abaixo
 - `vagrant box add ubuntu/bionic64` *(Opcional)*
 - `vagrant up` *(na raiz do projeto)*
 + Obs. O servidor é provisionado com endereço IP estatico.
