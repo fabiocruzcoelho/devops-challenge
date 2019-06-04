@@ -15,6 +15,9 @@ function title() {
 title ">_ vagrant: vagrant up"
 vagrant up
 
+title ">_ Waiting: Waiting for ssh to be available..."
+sleep 20
+
 export ANSIBLE_STDOUT_CALLBACK=yaml
 
 title ">_ playbook: playbook.yml"

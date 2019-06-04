@@ -73,7 +73,6 @@ Vagrant.configure("2") do |config|
     sudo sed -i -e "\\#PasswordAuthentication yes# s#PasswordAuthentication yes#PasswordAuthentication no#g" /etc/ssh/sshd_config
     sudo systemctl reload sshd.service
     sudo echo "192.168.33.10 devops-challenge.serasa.local" >> /etc/hosts
-    sudo sleep 20 
   EOC
   # config.vm.provision "shell", inline: <<-SHELL
   #   apt-get update
