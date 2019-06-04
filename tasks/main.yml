@@ -11,6 +11,7 @@
   loop:
    - deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} edge 
    - deb http://nginx.org/packages/ubuntu {{ansible_distribution_release}} nginx
+
 - name: cria diretorio ssl
   file:
     path: '{{ nginx_path_ssl }}'
