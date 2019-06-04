@@ -54,12 +54,11 @@ Example Playbook
             docker_container_name: '{{ app_name }}'
             docker_image_tag: '{{ tag_name }}' '(ex: v1)'
    ```
-
 Preparando ambiente
 --------------
 Para utilizar o projeto favor executar os comandos abaixo *(Obs:. poderia criar um run.sh mas não deu tempo ;)*
 - `git clone https://github.com/fcruzcoelho/devops-challenge.git`
-- `vagrant box add centos/7` *(Opcional)*
+- `vagrant box add ubuntu/bionic64` *(Opcional)*
 - `vagrant up` *(na raiz do projeto)*
 + Obs. O servidor é provisionado com endereço IP estatico.
   - IP: `192.168.33.10`
