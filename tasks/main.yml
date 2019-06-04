@@ -22,7 +22,7 @@
     src: files/
     dest: '{{ nginx_path_ssl }}'
 
-- name: instala docker-ce e nginx
+- name: apt install docker-ce e nginx
   apt: name="{{ packages }}" state=latest
   vars:
     packages:
