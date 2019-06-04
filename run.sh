@@ -12,7 +12,7 @@ function title() {
     echo -e "\e[105m\e[1m$1\e[0m"
 }
 
-title ">_ vagrant up: vagrant up"
+title ">_ vagrant: vagrant up"
 vagrant up
 
 export ANSIBLE_STDOUT_CALLBACK=yaml
