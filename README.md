@@ -10,7 +10,7 @@ Para o funcionamento, é preciso realizar algumas instalação e/ou configuraç�
  - [virtualbox](https://www.virtualbox.org/wiki/Downloads)
  - [vagrant](https://www.vagrantup.com/intro/getting-started/install.html)
  - [ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
- + chave ssh no path `~/.ssh/id_rsa` 
+ + chave ssh no path `~/.ssh/id_rsa`
     - Obs:. caso a chave não se encontrar no path acima precisa alterar nos seguintes arquivos.
   - Vagrantfile, linha `69`
   - hosts.yml, linha `8`
@@ -58,16 +58,16 @@ Example Playbook
 Preparando ambiente
 --------------
 Para utilizar o projeto favor executar os comandos abaixo *(Obs:. poderia criar um run.sh mas não deu tempo ;)*
-- `git clone -b ansible https://github.com/fcruzcoelho/devops-challenge.git`
+- `git clone https://github.com/fcruzcoelho/devops-challenge.git`
 - `vagrant box add centos/7` *(Opcional)*
 - `vagrant up` *(na raiz do projeto)*
-+ Obs. O servidor é provisionado com endereço IP estatico. 
++ Obs. O servidor é provisionado com endereço IP estatico.
   - IP: `192.168.33.10`
 - `vagrant destroy`
   - Destroy ambiente.
 
 Apos a maquina provisionada, executar o playboock com o seguinte comando.
-  - `ansible-playbook -i hosts.yml playbook.yml -e 'tag_name=v1'`  
+  - `ansible-playbook -i hosts.yml playbook.yml -e 'tag_name=v1'`
   + Obs. A variavel `docker_image_tag` é trocada na execução do playbook via `extra-vars` para realizar o build de uma nova imagem docker, conforme comando acima, e assim uma nova versão da aplicação para deploy.
 
 Acessando aplicação

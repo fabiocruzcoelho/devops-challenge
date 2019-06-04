@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "centos/7"
+  config.vm.box = "ubuntu/bionic64"
 
   # ssh settings
   config.ssh.insert_key = false
@@ -68,7 +68,7 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/authorized_keys"
   config.vm.provision "shell", inline: <<-EOC
-    sudo yum -y install epel-release git
+    sudo apt update && sudo apt upgrade -y && sudo apt install python-pip python-dev -y
     sudo hostnamectl set-hostname devops-challenge
     sudo sed -i -e "\\#PasswordAuthentication yes# s#PasswordAuthentication yes#PasswordAuthentication no#g" /etc/ssh/sshd_config
     sudo systemctl reload sshd.service

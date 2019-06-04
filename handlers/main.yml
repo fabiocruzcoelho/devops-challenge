@@ -8,9 +8,3 @@
 
 - name: reload nginx
   systemd: name=nginx state=reloaded
-
-- name: reboot server
-  reboot:
-    msg: Reboot initiated by Ansible
-    reboot_timeout: 120
-    pre_reboot_delay: 2
